@@ -1,0 +1,230 @@
+<template>
+    <div class="container-fluid pb-5">
+        <h1 class="mt-4">Add Company Category</h1>
+        <ol class="admin-breadcrumb mb-4">
+            <li class="admin-breadcrumb-item">
+                <router-link to="/artist/dashboard">Dashboard</router-link>
+            </li>
+            <li class="admin-breadcrumb-item active">Add Category</li>
+        </ol>
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-plus mr-1" aria-hidden="true"></i>
+                Add a company category
+            </div>
+
+            <div class="card-body">
+                <transition name="slide-fade">
+                    <div
+                        class="alert"
+                        :class="{
+                            'alert-danger': !success,
+                            'alert-success': success
+                        }"
+                        v-show="showMsg"
+                    >
+                        {{ message }}
+                    </div>
+                </transition>
+                <div class="container">
+                    <form
+                        style="padding: 40px 60px"
+                        @submit.prevent="addProductCategory"
+                        enctype="multipart/form-data"
+                    >
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="category">Name: </label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="category"
+                                    name="category"
+                                    placeholder="Enter category name"
+                                    v-model="category"
+                                />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="title_image" class="title_image"
+                                    >Title image</label
+                                >
+                                <input
+                                    class="form-control-file mt-1"
+                                    type="file"
+                                    id="title_image"
+                                    @change="onTitleImgChange"
+                                />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="bg_image" class="bg_image"
+                                    >Category Background</label
+                                >
+                                <input
+                                    class="form-control-file mt-1"
+                                    type="file"
+                                    id="bg_image"
+                                    @change="onFileChange"
+                                />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="bg_image_direction"
+                                    >Background Direction:
+                                </label>
+                                <select
+                                    id="bg_image_direction"
+                                    name="bg_image_direction"
+                                    v-model="bg_image_direction"
+                                    class="form-control"
+                                >
+                                    <option value="Left">Left</option>
+                                    <option value="Right">Right</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-lg btn-primary col-md-12"
+                            :disabled="loading"
+                        >
+                            Save
+                            <div
+                                v-if="loading"
+                                class="spinner-border text-light ml-3"
+                                role="status"
+                            >
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import Multiselect from "vue-multiselect";
+import { mapState, mapActions } from "vuex";
+export default {
+    name: "AddCompanyCategory",
+    components: { Multiselect },
+    data() {
+        return {
+            category: "",
+            bg_image_direction: "",
+            title_image: "",
+            bg_image: "",
+            message: "",
+            success: "",
+            showMsg: false,
+            loading: false,
+            categorySelected: ""
+        };
+    },
+    computed: {
+        ...mapState({
+            categories: state => state.products.categories,
+            extractedCategories: state => state.products.extractedCategories
+        })
+    },
+    mounted() {
+        this.loadExtractedCategories();
+    },
+    methods: {
+        ...mapActions("products", ["get_extracted_categories"]),
+
+        loadExtractedCategories() {
+            this.get_extracted_categories();
+        },
+
+        addProductCategory() {
+            this.loading = true;
+            this.showMsg = false;
+            let formData = new FormData();
+            formData.append("name", this.category);
+            formData.append("title_image", this.title_image);
+            formData.append("bg_image", this.bg_image);
+            formData.append("bg_image_direction", this.bg_image_direction);
+            this.$store
+                .dispatch("products/add_company_category", formData)
+                .then(response => {
+                    this.loading = false;
+                    this.category = "";
+                    this.success = true;
+                    this.showMsg = true;
+                    this.message = "Category Saved successfully!";
+                    setTimeout(() => {
+                        this.showMsg = false;
+                    }, 3000);
+                    console.log(response);
+                })
+                .catch(error => {
+                    this.loading = false;
+                    console.log(error);
+                    console.log(error.response);
+                    this.success = false;
+                    this.message = `${error.response.data.message}`;
+                    this.showMsg = true;
+                });
+        },
+        addCategory(newCategory) {
+            const category = {
+                name: newCategory.name,
+                code:
+                    newCategory.substring(0, 2) +
+                    Math.floor(Math.random() * 10000000)
+            };
+            this.categorySelected.push(category);
+        },
+        onFileChange(e) {
+            const selected = e.target.files[0];
+            const accepted = ["image/png", "image/jpeg"];
+
+            if (selected && accepted.includes(selected.type)) {
+                this.bg_image = selected;
+            } else {
+                const errorMsg = "Selected file is not an image type";
+                this.message(errorMsg);
+            }
+        },
+        onTitleImgChange(e) {
+            const selected = e.target.files[0];
+            const accepted = ["image/png", "image/jpeg"];
+
+            if (selected && accepted.includes(selected.type)) {
+                this.title_image = selected;
+            } else {
+                const errorMsg = "Selected file is not an image type";
+                this.message(errorMsg);
+            }
+        }
+    }
+};
+</script>
+
+<style scoped>
+.slide-fade-enter-active {
+    transition: all 0.8s ease;
+}
+.slide-fade-leave-active {
+    transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+    transform: translateX(10px);
+    opacity: 0;
+}
+.fade-enter-active {
+    transition: all 0.5s ease;
+}
+.fade-leave-active {
+    transition: all 0s cubic-bezier(1, 0, 0, 1);
+}
+.fade-enter,
+.fade-leave-to {
+    transform: translateX(10px);
+    opacity: 0;
+}
+</style>
