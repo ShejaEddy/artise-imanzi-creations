@@ -926,7 +926,7 @@ class ProductController extends Controller
 
     public function getGiveAway()
     {
-        $product = Product::where('price', 0)->order('created_at', 'DESC')->first();
+        $product = Product::where('price', 0)->orderBy('created_at', 'DESC')->first();
         return response()->json($product);
     }
 }

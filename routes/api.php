@@ -8,6 +8,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AdvertsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\GiveAwayController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostsController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\SearchEngineController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+use App\Models\GiveAway;
 
 /*----------------------DASHBOARDS API-----------------------*/
 
@@ -53,8 +55,11 @@ Route::middleware('auth:sanctum')->get('/approve-product/{id}', [ProductControll
 Route::middleware('auth:sanctum')->get('/reject-product/{id}', [ProductController::class, 'rejectProduct']);
 Route::middleware('auth:sanctum')->get('/get-all-earnings', [ProductController::class, 'getAllEarnings']);
 Route::middleware('auth:sanctum')->get('/get-my-earnings', [ProductController::class, 'getMyEarnings']);
+Route::middleware('auth:sanctum')->get('/give-aways', [GiveAwayController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/give-aways/:id/toggle', [GiveAwayController::class, 'toggleStatus']);
 Route::get('/add-views/{product_id}', [ProductController::class, 'addViews']);
-Route::get('/give-aways', [ProductController::class, 'getGiveAway']);
+Route::get('/give-away', [ProductController::class, 'getGiveAway']);
+Route::post('/give-away', [GiveAwayController::class, 'store']);
 
 // PRODUCT API--END
 
@@ -65,6 +70,7 @@ Route::middleware('auth:sanctum')->post('/update-company-category', [CategoryCon
 Route::get('/get-categories', [CategoryController::class, 'getCategories']);
 Route::get('/get-company-categories', [CategoryController::class, 'getCompanyCategories']);
 Route::get('/get-extracted-categories', [CategoryController::class, 'getExtractedCategories']);
+Route::get('/get-other-categories', [CategoryController::class, 'getOtherCategories']);
 Route::middleware('auth:sanctum')->get('/get-category/{id}', [CategoryController::class, 'getCategory']);
 Route::middleware('auth:sanctum')->post('/update-category', [CategoryController::class, 'updateCategory']);
 Route::middleware('auth:sanctum')->get('/remove-category/{id}', [CategoryController::class, 'removeCategory']);

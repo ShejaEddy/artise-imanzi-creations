@@ -24,7 +24,9 @@ const state = {
     singlePost: [],
     searched_posts: [],
     shop_searched_data: [],
-    dashboard_searched_data: []
+    dashboard_searched_data: [],
+    giveAway: null,
+    giveAways: []
 };
 const getters = {
     reviews: state => state.reviews
@@ -73,6 +75,7 @@ const actions = {
                 }
             })
             .then(response => {
+                console.log(response);
                 commit("addCompanyCategory", response.data);
             });
     },
@@ -89,6 +92,24 @@ const actions = {
                     resolve(response);
 
                     commit("getProductCategories", response.data);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    },
+    get_other_categories({ commit }) {
+        return new Promise((resolve, reject) => {
+            axios
+                .get("/api/get-other-categories", {
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("userToken")
+                    }
+                })
+                .then(response => {
+                    resolve(response);
+                    commit("setOtherCategories", response.data);
                 })
                 .catch(error => {
                     reject(error);
@@ -305,6 +326,44 @@ const actions = {
                 .then(response => {
                     resolve(response);
                     commit("getShopProducts", response.data);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    },
+
+    get_give_aways({ commit }) {
+        return new Promise((resolve, reject) => {
+            axios
+                .get("/api/give-aways", {
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("userToken")
+                    }
+                })
+                .then(response => {
+                    resolve(response);
+                    commit("setGiveAways", response.data);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    },
+
+    toggleSentGiveAway({ commit }, id) {
+        return new Promise((resolve, reject) => {
+            axios
+                .post("/give-aways/" + id + "/toggle", {
+                    headers: {
+                        Authorization:
+                            "Bearer " + localStorage.getItem("userToken")
+                    }
+                })
+                .then(response => {
+                    resolve(response);
+                    commit("changeGiveAwayStatus", response.data);
                 })
                 .catch(error => {
                     reject(error);
@@ -861,9 +920,42 @@ const actions = {
                     reject(error);
                 });
         });
+    },
+    get_give_away({ commit }) {
+        return new Promise((resolve, reject) =>
+            axios
+                .get(`api/give-away`)
+                .then(res => {
+                    commit("setGiveAway", res.data);
+                    resolve(res.data);
+                })
+                .catch(err => reject(err))
+        );
+    },
+    storeGiveAwayRequest(_, data) {
+        return new Promise((resolve, reject) =>
+            axios
+                .post(`api/give-away`, data)
+                .then(res => {
+                    resolve(res.data);
+                })
+                .catch(err => reject(err))
+        );
     }
 };
 const mutations = {
+    setGiveAway(state, data) {
+        state.giveAway = data;
+    },
+    setGiveAways(state, data) {
+        state.giveAways = data;
+        console.log(state.giveAways);
+    },
+    changeGiveAwayStatus(state, data) {
+        state.giveAways = state.giveAways.map(item =>
+            item.id == data.id ? { ...item, sent: data.sent } : item
+        );
+    },
     addToCart(state, id) {
         if (state.cart && state.cart.findIndex(r => r.id === id) === -1) {
             let data = state.products.filter(r => r.id === id);
@@ -1024,6 +1116,9 @@ const mutations = {
     },
     addCompanyCategory(state, data) {
         state.other_categories.push(data);
+    },
+    setOtherCategories(state, data) {
+        state.other_categories = data;
     },
     updateProductCategory(state, data) {
         let i = state.categories.findIndex(cat => cat.id == data.id);

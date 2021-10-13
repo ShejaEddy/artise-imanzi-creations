@@ -344,6 +344,12 @@
                         </div>
                         Reviews
                     </router-link>
+                    <router-link class="nav-link" to="/admin/view-give-ways">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        Client Give Aways
+                    </router-link>
 
                     <div class="sb-sidenav-menu-heading">Account</div>
                     <a

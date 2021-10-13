@@ -72,6 +72,7 @@ import AdminEditSlide from "./components/pages/admin_pages/EditSlide";
 import AdminAddPage from "./components/pages/admin_pages/AddPage";
 import AdminViewPages from "./components/pages/admin_pages/ViewPages";
 import AdminSearchResult from "./components/pages/admin_pages/SearchResults";
+import adminViewClientsGiveAways from "./components/pages/admin_pages/ClientGiveAways";
 
 // ADMIN ROUTERS--END
 
@@ -286,6 +287,11 @@ let routes = [
         name: "AdminViewClients",
         path: "/admin/view-clients",
         component: AdminViewClients
+    },
+    {
+        name: "AdminViewClientsGiveAways",
+        path: "/admin/view-give-ways",
+        component: adminViewClientsGiveAways
     },
     {
         name: "AdminViewUsers",

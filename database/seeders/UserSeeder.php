@@ -15,19 +15,19 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('users')->insert(
-        //     [
-        //         'names' => 'Imanzi Creations',
-        //         'email' => 'imanzi.rw@gmail.com',
-        //         'phone' => '0788334964',
-        //         'address' => 'Kimironko-Kigali-Rwanda',
-        //         'city' => 'Kigali',
-        //         'country' => 'Rwanda',
-        //         'zipCode' => '34569',
-        //         'role' => 'admin',
-        //         'password' => Hash::make('changinglives')
-        //     ]
-        // );
+        DB::table('users')->insert(
+            [
+                'names' => 'Imanzi Creations',
+                'email' => 'admin@admin.com',
+                'phone' => '0788334964',
+                'address' => 'Kimironko-Kigali-Rwanda',
+                'city' => 'Kigali',
+                'country' => 'Rwanda',
+                'zipCode' => '34569',
+                'role' => 'admin',
+                'password' => Hash::make('password')
+            ]
+        );
         DB::table('users')->insert(
             [
                 'names' => 'Francois',

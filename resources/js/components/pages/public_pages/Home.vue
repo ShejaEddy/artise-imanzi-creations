@@ -37,10 +37,15 @@ import TermsAndConditionContainer from "../../widgets/public_widgets/TermsAndCon
 import HomeBlogContainer from "../../widgets/public_widgets/HomeBlogContainer";
 import Footer from "../../widgets/public_widgets/Footer";
 import ModelRoot from "../../modelComponents/ModelRoot.vue";
-import TestModel from "../../modelComponents/GiveAwayModel.vue";
+import GiveAwayModel from "../../modelComponents/GiveAwayModel.vue";
 import ModelService from "../../modelComponents/model.service";
 export default {
     name: "Home",
+    data() {
+        return {
+            giveAway: null
+        };
+    },
     components: {
         CartDrawer,
         Header,
@@ -57,11 +62,23 @@ export default {
     },
     mounted() {
         window.scrollTo(0, 0);
-        this.addModal();
+        // this.addModal();
+        this.getGiveAway();
     },
     methods: {
         addModal() {
-            ModelService.open(TestModel);
+            ModelService.open(GiveAwayModel);
+        },
+        async getGiveAway() {
+            console.log("CALLED NOW");
+            this.giveAway = await this.$store.dispatch(
+                "products/get_give_away"
+            );
+            console.log("HERERERERE", this.giveAway);
+            if (this.giveAway) {
+                this.addModal();
+                console.log("HERERERERERERERERE");
+            }
         }
     }
 };

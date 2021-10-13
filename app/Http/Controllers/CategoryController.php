@@ -311,4 +311,10 @@ class CategoryController extends Controller
             return response()->json('Error');
         }
     }
+
+    public function getOtherCategories(Request $request)
+    {
+        $data = OtherCategory::all();
+        return response()->json($data);
+    }
 }
