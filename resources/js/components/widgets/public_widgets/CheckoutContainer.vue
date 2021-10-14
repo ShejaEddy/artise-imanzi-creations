@@ -1927,7 +1927,7 @@
                                                                     alt="Beoplay A1"
                                                                     class="product-thumbnail__image"
                                                                     :src="
-                                                                        `${baseUrl}/storage/${ct.thumbnail}`
+                                                                        `${baseUrl}/uploads/images/${ct.thumbnail}`
                                                                     "
                                                                 />
                                                             </div>

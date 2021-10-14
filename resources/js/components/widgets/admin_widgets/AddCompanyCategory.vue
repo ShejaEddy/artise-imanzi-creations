@@ -43,6 +43,15 @@
                                     placeholder="Enter category name"
                                     v-model="category"
                                 />
+                                <span
+                                    ><i
+                                        ><small
+                                            class="text-danger mt-2"
+                                            v-if="errors.name"
+                                            >{{ errors.name["0"] }}</small
+                                        ></i
+                                    ></span
+                                >
                             </div>
                             <div class="col-md-6">
                                 <label for="title_image" class="title_image"
@@ -54,6 +63,17 @@
                                     id="title_image"
                                     @change="onTitleImgChange"
                                 />
+                                <span
+                                    ><i
+                                        ><small
+                                            class="text-danger mt-2"
+                                            v-if="errors.title_image"
+                                            >{{
+                                                errors.title_image["0"]
+                                            }}</small
+                                        ></i
+                                    ></span
+                                >
                             </div>
                             <div class="col-md-6">
                                 <label for="bg_image" class="bg_image"
@@ -65,6 +85,15 @@
                                     id="bg_image"
                                     @change="onFileChange"
                                 />
+                                <span
+                                    ><i
+                                        ><small
+                                            class="text-danger mt-2"
+                                            v-if="errors.bg_image"
+                                            >{{ errors.bg_image["0"] }}</small
+                                        ></i
+                                    ></span
+                                >
                             </div>
 
                             <div class="form-group col-md-6">
@@ -80,6 +109,17 @@
                                     <option value="Left">Left</option>
                                     <option value="Right">Right</option>
                                 </select>
+                                <span
+                                    ><i
+                                        ><small
+                                            class="text-danger mt-2"
+                                            v-if="errors.bg_image_direction"
+                                            >{{
+                                                errors.bg_image_direction["0"]
+                                            }}</small
+                                        ></i
+                                    ></span
+                                >
                             </div>
                         </div>
 
@@ -120,7 +160,8 @@ export default {
             success: "",
             showMsg: false,
             loading: false,
-            categorySelected: ""
+            categorySelected: "",
+            errors: {}
         };
     },
     computed: {
@@ -164,8 +205,11 @@ export default {
                     this.loading = false;
                     console.log(error);
                     console.log(error.response);
+                    if (error.response) {
+                        this.errors = error.response.data.errors;
+                        this.message = `${error.response.data.message}`;
+                    }
                     this.success = false;
-                    this.message = `${error.response.data.message}`;
                     this.showMsg = true;
                 });
         },

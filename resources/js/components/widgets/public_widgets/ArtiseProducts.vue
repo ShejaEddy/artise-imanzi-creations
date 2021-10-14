@@ -1,55 +1,52 @@
 <template>
     <div
-        class="artise_product_section"
+        class="artise_product_section pl-5 pt-3"
+        :class="`position-${position}`"
         v-bind:style="{
             'background-image': 'url(' + background + ')',
             'background-repeat': 'no-repeat',
-            'background-size': '100%'
+            'background-size': 'cover'
         }"
     >
-        <div class="col-md-8">
+        <div class="col-md-3" v-if="position === 'Left'"></div>
+        <div class="col-md-8 pl-5">
             <div class="prod-container padding">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="prod-title">
-                            <h1>{{ title }}</h1>
+                        <div class="prod-title w-100">
+                            <img
+                                class="lazyload"
+                                :src="`${baseUrl}/uploads/images/${title}`"
+                            />
                         </div>
                     </div>
-                    <div
-                        class="col-md-4"
-                        :key="product.id"
-                        v-for="product in products"
-                    >
-                        <div class="card">
-                            <div class="prod-container">
-                                <div
-                                    class="prod-image"
-                                    @click="addModal(product)"
-                                >
-                                    <img
-                                        class="product-card__img lazyload"
-                                        :data-src="
-                                            `${baseUrl}/storage/${product.thumbnail}`
-                                        "
-                                        data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                                        data-aspectratio="0.8048289738430584"
-                                        data-ratio="0.8048289738430584"
-                                        data-sizes="auto"
-                                        width="100%"
-                                        alt=""
-                                    />
-                                </div>
-                                <div class="prod-name">
-                                    <h4>{{ product.name }}</h4>
-                                </div>
-                                <button
-                                    class="prod-link"
-                                    @click="addModal(product)"
-                                    :href="product.link"
-                                >
-                                    Look inside
-                                </button>
+                    <div class="d-flex justify-content-center w-100">
+                        <div
+                            class="card d-flex flex-column justify-content-end px-4 mb-3"
+                            :key="product.id"
+                            v-for="product in products"
+                        >
+                            <div
+                                class="prod-image px-3"
+                                @click="addModal(product)"
+                            >
+                                <img
+                                    class="product-card__img lazyload"
+                                    :data-src="
+                                        `${baseUrl}/uploads/images/${product.thumbnail}`
+                                    "
+                                />
                             </div>
+                            <div class="prod-name text-uppercase">
+                                <h6 class="mb-0">{{ product.name }}</h6>
+                            </div>
+                            <button
+                                class="prod-link small "
+                                @click="addModal(product)"
+                                :href="product.link"
+                            >
+                                <u> Look inside</u>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -62,7 +59,6 @@
 import ModelRoot from "../../modelComponents/ModelRoot.vue";
 import TestModel from "../../modelComponents/CustomModel.vue";
 import ModelService from "../../modelComponents/model.service";
-import { mapState } from "vuex";
 export default {
     name: "ArtiseProducts",
     data() {
@@ -78,7 +74,8 @@ export default {
     props: {
         products: Array,
         background: String,
-        title: String
+        title: String,
+        position: String
     },
     mounted() {
         this.generateBaseUrl();
@@ -87,8 +84,8 @@ export default {
         generateBaseUrl() {
             let base_url = window.location.origin;
             this.baseUrl = base_url;
-            this.image = this.baseUrl + "/assets/images/bgs/ngunda.png";
-            this.imageUrl = this.baseUrl + "/assets/images/ngunda-novel.png";
+            this.image = this.baseUrl + "/assets/images/bgs/ndoli.png";
+            this.imageUrl = this.baseUrl + "/assets/images/ndabaga.png";
         },
         addModal(product) {
             ModelService.open(TestModel, {
@@ -107,9 +104,15 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Titan+One&display=swap");
 .artise_product_section {
-    min-height: 490px;
+    min-height: 500px;
     margin: 0px auto !important;
-    background: #f3f1ef;
+    background: #efefef;
+}
+.position-Right {
+    background-position: right;
+}
+.position-Left {
+    background-position: left;
 }
 .prod-container {
     margin: 0px auto !important;
@@ -119,15 +122,30 @@ export default {
     padding-left: 1rem;
 }
 .card {
-    padding: 0.75rem;
-    /* margin: 0, 80rem; */
+    padding: 1.75rem;
+    width: 22.75rem;
+    height: 265px;
+    margin: 15px 30px;
+    border-radius: 20px;
 }
-.prod-title {
-    text-align: center;
-    font-family: "Titan One", cursive;
+.prod-title img {
+    width: 45%;
+    max-height: 135px;
+    margin: 10px auto;
+    object-fit: contain;
 }
 .product-card__img {
-    max-height: 250px;
+    height: 160px;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: 0 3px 6px grey;
+}
+.prod-name h6 {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 10px;
 }
 .prod-link {
     color: rgb(252, 173, 0);

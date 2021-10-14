@@ -354,8 +354,8 @@ const actions = {
 
     toggleSentGiveAway({ commit }, id) {
         return new Promise((resolve, reject) => {
-            axios
-                .post("/give-aways/" + id + "/toggle", {
+            return axios
+                .post("/api/give-aways/" + id + "/toggle", {
                     headers: {
                         Authorization:
                             "Bearer " + localStorage.getItem("userToken")
@@ -363,11 +363,9 @@ const actions = {
                 })
                 .then(response => {
                     resolve(response);
-                    commit("changeGiveAwayStatus", response.data);
+                    return commit("changeGiveAwayStatus", response.data);
                 })
-                .catch(error => {
-                    reject(error);
-                });
+                .catch(error => reject(error));
         });
     },
 
@@ -952,9 +950,11 @@ const mutations = {
         console.log(state.giveAways);
     },
     changeGiveAwayStatus(state, data) {
+        console.log(data.id, state.giveAways);
         state.giveAways = state.giveAways.map(item =>
-            item.id == data.id ? { ...item, sent: data.sent } : item
+            item.id == data.id ? { ...item, ...data } : item
         );
+        console.log(state.giveAways);
     },
     addToCart(state, id) {
         if (state.cart && state.cart.findIndex(r => r.id === id) === -1) {

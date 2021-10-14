@@ -70,14 +70,11 @@ export default {
             ModelService.open(GiveAwayModel);
         },
         async getGiveAway() {
-            console.log("CALLED NOW");
             this.giveAway = await this.$store.dispatch(
                 "products/get_give_away"
             );
-            console.log("HERERERERE", this.giveAway);
             if (this.giveAway) {
                 this.addModal();
-                console.log("HERERERERERERERERE");
             }
         }
     }

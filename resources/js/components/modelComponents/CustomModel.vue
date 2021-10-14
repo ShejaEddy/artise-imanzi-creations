@@ -16,27 +16,43 @@
                     <div>
                         <img
                             class="product-card__img lazyload"
-                            :data-src="`${baseUrl}/storage/${thumbnail}`"
+                            :src="`${baseUrl}/uploads/images/${image}`"
                             data-sizes="auto"
                             alt=""
                             width="100%"
                         />
                     </div>
                     <div class="row product-slider">
-                        <div class="col-md-6">
+                        <div class="col-md-4 p-1">
                             <img
+                                @click="image = thumbnail"
                                 class="product-card__img lazyload"
-                                :data-src="`${baseUrl}/storage/${forwardImage}`"
+                                :data-src="
+                                    `${baseUrl}/uploads/images/${thumbnail}`
+                                "
                                 data-sizes="auto"
                                 alt=""
                                 width="100%"
                             />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4 p-1">
                             <img
+                                @click="image = backwardImage"
                                 class="product-card__img lazyload"
                                 :data-src="
-                                    `${baseUrl}/storage/${backwardImage}`
+                                    `${baseUrl}/uploads/images/${backwardImage}`
+                                "
+                                data-sizes="auto"
+                                alt=""
+                                width="100%"
+                            />
+                        </div>
+                        <div class="col-md-4 p-1">
+                            <img
+                                @click="image = forwardImage"
+                                class="product-card__img lazyload"
+                                :data-src="
+                                    `${baseUrl}/uploads/images/${forwardImage}`
                                 "
                                 data-sizes="auto"
                                 alt=""
@@ -92,7 +108,7 @@ export default {
             baseUrl: "",
             added: "",
             remove: "",
-            images: [1, 2]
+            image: null
         };
     },
     watch: {
@@ -109,6 +125,7 @@ export default {
     },
     mounted() {
         this.generateImageUrl();
+        this.image = this.thumbnail;
     },
     props: {
         id: Number,

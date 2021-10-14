@@ -73,7 +73,8 @@ class CategoryController extends Controller
         ]);
         $category = new Category([
             'name' => $data['name'],
-            'parent_category' => $data['parent_category']
+            'parent_category' => $data['parent_category'],
+            'category_type' => 'company'
         ]);
 
         // Checking if category already exists
@@ -158,22 +159,10 @@ class CategoryController extends Controller
 
     public function getCompanyCategories()
     {
-        $category_info = array();
-        $categories_info = array();
-        $categories = DB::table('categories')
-            ->where('category_type', 'company')
-            ->get();
-        foreach ($categories as $cat) {
-            if ($cat->parent_category === 0) {
-                $category_info['id'] = $cat->id;
-                $category_info['name'] = $cat->name;
-                $category_info['title_image'] = $cat->title_image;
-                $category_info['bg_image'] = $cat->bg_image;
-                $category_info['bg_image_direction'] = $cat->bg_image_direction;
-                array_push($categories_info, $category_info);
-            }
-        }
-        return response()->json($categories_info);
+        $categories = OtherCategory::whereHas('products')->with(["products" => function ($q) {
+            $q->limit(4)->orderBy("created_at", "DESC");
+        }])->limit(4)->get();
+        return response()->json($categories);
     }
 
     public function getCategory($id)

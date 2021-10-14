@@ -59,7 +59,7 @@
                                         <img
                                             style="background:white;"
                                             :src="
-                                                `${baseUrl}/storage/${item.product.thumbnail}`
+                                                `${baseUrl}/uploads/images/${item.product.thumbnail}`
                                             "
                                             class="img-thumbnail"
                                             width="45"
@@ -75,7 +75,7 @@
                                     <td>{{ item.phone }}</td>
                                     <td
                                         :class="
-                                            item.sent
+                                            !!item.sent
                                                 ? 'text-success'
                                                 : 'text-warning'
                                         "
@@ -84,21 +84,24 @@
                                     </td>
                                     <td>
                                         <button
-                                            class="btn  btn-sm"
-                                            :class="
-                                                item.sent
-                                                    ? 'btn-danger'
-                                                    : 'btn-success'
-                                            "
+                                            v-if="!!item.sent"
+                                            class="btn btn-sm shadow"
+                                            :class="'btn-danger'"
                                             @click.prevent="
                                                 toggleStatus(item.id)
                                             "
                                         >
-                                            <i
-                                                class="fa fa-close"
-                                                v-if="item.sent"
-                                            ></i>
-                                            <i class="fa fa-check" v-else></i>
+                                            Not Sent
+                                        </button>
+                                        <button
+                                            v-else
+                                            class="btn btn-sm shadow"
+                                            :class="'btn-success'"
+                                            @click.prevent="
+                                                toggleStatus(item.id)
+                                            "
+                                        >
+                                            Sent
                                         </button>
                                     </td>
                                 </tr>
@@ -130,7 +133,6 @@ export default {
     mounted() {
         this.generateBaseUrl();
         this.loadGiveAways();
-        setTimeout(() => console.log(this.giveAways), 5000);
     },
     methods: {
         ...mapActions("products", ["get_give_aways"]),
@@ -150,8 +152,8 @@ export default {
                 window.scroll(0, window.pageYOffset - 50);
             }, 20);
         },
-        toggleStatus(id) {
-            this.$store.dispatch("products/toggleSentGiveAway", id);
+        async toggleStatus(id) {
+            await this.$store.dispatch("products/toggleSentGiveAway", id);
         }
     }
 };

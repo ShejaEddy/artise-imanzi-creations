@@ -128,7 +128,7 @@
                                                                         <img
                                                                             class="product-card__img lazyload"
                                                                             :data-src="
-                                                                                `${baseUrl}/storage/${post.featured_image}`
+                                                                                `${baseUrl}/uploads/images/${post.featured_image}`
                                                                             "
                                                                             data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
                                                                             data-aspectratio="1.6"
@@ -230,7 +230,7 @@
                                                         <li class="disabled">
                                                             <span>
                                                                 <i class="fa fa-angle-double-left"></i>
-                                                                
+
                                                             </span>
                                                         </li>
 
@@ -242,7 +242,7 @@
 
                                                         <li class="pagiNext">
                                                             <a href="news4658.html?page=2" title="Next">
-                                                               
+
                                                                 <i class="fa fa-angle-double-right"></i>
                                                             </a>
                                                         </li>

@@ -158,7 +158,7 @@
                                                         <img
                                                             class="product-card__img lazyload"
                                                             :src="
-                                                                `${baseUrl}/storage/${PostInfo.featured_image}`
+                                                                `${baseUrl}/uploads/images/${PostInfo.featured_image}`
                                                             "
                                                             data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
                                                             data-aspectratio="1.6"

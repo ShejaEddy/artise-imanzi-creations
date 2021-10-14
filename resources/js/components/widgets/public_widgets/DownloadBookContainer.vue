@@ -25,7 +25,9 @@
                                 purchased eBook!
                             </p>
                             <a
-                                :href="`${baseUrl}/storage/${ct.book_pdf}`"
+                                :href="
+                                    `${baseUrl}/uploads/images/${ct.book_pdf}`
+                                "
                                 :download="ct.name"
                                 class="btnNewsletter btnVelaOne"
                             >

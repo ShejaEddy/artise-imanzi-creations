@@ -108,7 +108,7 @@
                                                 ><img
                                                     style="background:white;"
                                                     :src="
-                                                        `${baseUrl}/storage/${product.thumbnail}`
+                                                        `${baseUrl}/uploads/images/${product.thumbnail}`
                                                     "
                                                     class="img-thumbnail"
                                                     width="45"
@@ -302,7 +302,7 @@
                             <div class="card-header border-0">
                                 <img
                                     :src="
-                                        `${baseUrl}/storage/${product.thumbnail}`
+                                        `${baseUrl}/uploads/images/${product.thumbnail}`
                                     "
                                     width="300"
                                     alt=""
@@ -397,7 +397,7 @@
                                             >
                                         </span>
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label for="inputPassword4"
                                             >Price (Rwf):</label
                                         >
@@ -421,7 +421,7 @@
                                             >
                                         </span>
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label for="inputPassword4"
                                             >Discount (%):</label
                                         >
@@ -445,7 +445,7 @@
                                             >
                                         </span>
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label for="inputState"
                                             >Category:</label
                                         >
@@ -488,6 +488,43 @@
                                                     v-if="categoryErr"
                                                     >{{
                                                         errors.categoryId["0"]
+                                                    }}</small
+                                                ></i
+                                            >
+                                        </span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputState"
+                                            >Other Category:</label
+                                        >
+                                        <select
+                                            id="other-category"
+                                            name="other-category"
+                                            v-model="
+                                                ProductInfo.otherCategoryId
+                                            "
+                                            class="form-control"
+                                        >
+                                            <option value=""
+                                                >Choose category...</option
+                                            >
+                                            <option
+                                                :value="item.id"
+                                                v-for="item in otherCategories"
+                                                :key="'c-' + item.id"
+                                            >
+                                                {{ item.name }}
+                                            </option>
+                                        </select>
+                                        <span>
+                                            <i
+                                                ><small
+                                                    class="text-danger"
+                                                    v-if="otherCategoryErr"
+                                                    >{{
+                                                        errors.otherCategoryId[
+                                                            "0"
+                                                        ]
                                                     }}</small
                                                 ></i
                                             >
@@ -1001,6 +1038,7 @@ export default {
             backward_imgErr: false,
             ErrorsAvailable: false,
             bookPdfErr: false,
+            otherCategoryErr: false,
             alertMsg: "",
             alertClass: "",
             errors: null,
@@ -1016,7 +1054,8 @@ export default {
             categories: state => state.products.categories,
             tags: state => state.products.tagOptions,
             //colors: (state) => state.products.colorOptions,
-            extractedCategories: state => state.products.extractedCategories
+            extractedCategories: state => state.products.extractedCategories,
+            otherCategories: state => state.products.other_categories
         })
     },
     mounted() {
@@ -1026,6 +1065,7 @@ export default {
         //this.loadColors();
         this.generateBaseUrl();
         this.loadExtractedCategories();
+        this.get_other_categories();
     },
 
     methods: {
@@ -1033,6 +1073,7 @@ export default {
         ...mapActions("products", ["get_product_categories"]),
         ...mapActions("products", ["get_tags_options"]),
         //...mapActions("products", ["get_color_options"]),
+        ...mapActions("products", ["get_other_categories"]),
         ...mapActions("products", ["get_extracted_categories"]),
 
         loadExtractedCategories() {
@@ -1192,6 +1233,10 @@ export default {
             formData.append("name", name);
             formData.append("productId", id);
             formData.append("categoryId", this.ProductInfo.categoryId);
+            formData.append(
+                "otherCategoryId",
+                this.ProductInfo.otherCategoryId
+            );
             formData.append("tags", this.tagsSelected),
                 formData.append("stock", stock);
             formData.append("price", price);
@@ -1237,6 +1282,9 @@ export default {
                     }
                     if ("categoryId" in this.errors) {
                         this.categoryErr = true;
+                    }
+                    if ("otherCategoryId" in this.errors) {
+                        this.otherCategoryErr = true;
                     }
                     // if ("colors" in this.errors) {
                     //   this.colorsErr = true;

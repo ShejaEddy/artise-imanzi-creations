@@ -100,7 +100,7 @@
                                                         <img
                                                             class="product-card__img lazyautosizes lazyloaded"
                                                             :scr="
-                                                                `${baseUrl}/storage/${item.forwardImage}`
+                                                                `${baseUrl}/uploads/images/${item.forwardImage}`
                                                             "
                                                             data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]"
                                                             data-aspectratio="0.8048289738430584"
@@ -191,7 +191,7 @@
                                                 <a
                                                     class="btn btnProduct btnProductQuickview"
                                                     :href="
-                                                        `${baseUrl}/storage/${item.book_pdf}`
+                                                        `${baseUrl}/uploads/images/${item.book_pdf}`
                                                     "
                                                     :download="item.name"
                                                     title="Download Now"

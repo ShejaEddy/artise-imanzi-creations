@@ -109,7 +109,7 @@
                                                 ><img
                                                     style="background:white;"
                                                     :src="
-                                                        `${baseUrl}/storage/${product.thumbnail}`
+                                                        `${baseUrl}/uploads/images/${product.thumbnail}`
                                                     "
                                                     class="img-thumbnail"
                                                     width="45"
@@ -255,7 +255,7 @@
                             <div class="card-header border-0">
                                 <img
                                     :src="
-                                        `${baseUrl}/storage/${product.thumbnail}`
+                                        `${baseUrl}/uploads/images/${product.thumbnail}`
                                     "
                                     width="300"
                                     alt=""

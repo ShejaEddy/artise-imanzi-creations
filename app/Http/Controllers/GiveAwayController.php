@@ -29,9 +29,9 @@ class GiveAwayController extends Controller
         $data = GiveAway::find($giveAway_id);
         if ($data) {
             $data->update(['sent' => !$data->sent]);
-            response()->json($data);
+            return response()->json($data);
         } else {
-            response()->json('Give away not found');
+            return response()->json('Give away not found');
         }
     }
 

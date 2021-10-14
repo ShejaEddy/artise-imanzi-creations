@@ -94,7 +94,7 @@
                                                 <img
                                                     class="image_preview"
                                                     :src="
-                                                        `${baseUrl}/storage/${slideData.slide_image}`
+                                                        `${baseUrl}/uploads/images/${slideData.slide_image}`
                                                     "
                                                 />
                                             </template>

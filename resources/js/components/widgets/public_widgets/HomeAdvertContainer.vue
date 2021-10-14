@@ -31,7 +31,7 @@
                                                     data-sizes="auto"
                                                     alt=""
                                                     :src="
-                                                        `${baseUrl}/storage/${advert.left_advert}`
+                                                        `${baseUrl}/uploads/images/${advert.left_advert}`
                                                     "
                                                     sizes="674.3181818181819px"
                                                 />
@@ -60,7 +60,7 @@
                                                     data-sizes="auto"
                                                     alt=""
                                                     :src="
-                                                        `${baseUrl}/storage/${advert.right_advert}`
+                                                        `${baseUrl}/uploads/images/${advert.right_advert}`
                                                     "
                                                     sizes="674.3181818181819px"
                                                 />

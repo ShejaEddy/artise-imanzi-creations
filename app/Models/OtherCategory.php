@@ -9,4 +9,9 @@ class OtherCategory extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'title_image', 'bg_image', 'bg_image_direction'];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'otherCategoryId');
+    }
 }

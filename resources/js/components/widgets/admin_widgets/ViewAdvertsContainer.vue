@@ -28,7 +28,7 @@
                                 <img
                                     class="image_preview"
                                     :src="
-                                        `${baseUrl}/storage/${advert.left_advert}`
+                                        `${baseUrl}/uploads/images/${advert.left_advert}`
                                     "
                                 />
                             </div>
@@ -41,7 +41,7 @@
                                 <img
                                     class="image_preview"
                                     :src="
-                                        `${baseUrl}/storage/${advert.right_advert}`
+                                        `${baseUrl}/uploads/images/${advert.right_advert}`
                                     "
                                 />
                             </div>

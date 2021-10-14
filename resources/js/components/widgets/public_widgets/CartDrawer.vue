@@ -37,7 +37,7 @@
                                             ><img
                                                 class="img-responsive"
                                                 :src="
-                                                    `${baseUrl}/storage/${ct.thumbnail}`
+                                                    `${baseUrl}/uploads/images/${ct.thumbnail}`
                                                 "
                                                 alt=""
                                         /></router-link>

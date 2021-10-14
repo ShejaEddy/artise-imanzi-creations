@@ -65,7 +65,7 @@
                                                 <img
                                                     class="img-responsive"
                                                     :src="
-                                                        `${baseUrl}/storage/${ct.thumbnail}`
+                                                        `${baseUrl}/uploads/images/${ct.thumbnail}`
                                                     "
                                                     data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
                                                     data-aspectratio="0.8048289738430584"

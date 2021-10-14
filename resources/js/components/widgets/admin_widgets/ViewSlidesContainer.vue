@@ -54,7 +54,7 @@
                                         <img
                                             style="background:white;"
                                             :src="
-                                                `${baseUrl}/storage/${slide.slide_image}`
+                                                `${baseUrl}/uploads/images/${slide.slide_image}`
                                             "
                                             class="img-thumbnail"
                                             width="100"

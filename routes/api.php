@@ -56,7 +56,7 @@ Route::middleware('auth:sanctum')->get('/reject-product/{id}', [ProductControlle
 Route::middleware('auth:sanctum')->get('/get-all-earnings', [ProductController::class, 'getAllEarnings']);
 Route::middleware('auth:sanctum')->get('/get-my-earnings', [ProductController::class, 'getMyEarnings']);
 Route::middleware('auth:sanctum')->get('/give-aways', [GiveAwayController::class, 'index']);
-Route::middleware('auth:sanctum')->post('/give-aways/:id/toggle', [GiveAwayController::class, 'toggleStatus']);
+Route::post('/give-aways/{id}/toggle', [GiveAwayController::class, 'toggleStatus']);
 Route::get('/add-views/{product_id}', [ProductController::class, 'addViews']);
 Route::get('/give-away', [ProductController::class, 'getGiveAway']);
 Route::post('/give-away', [GiveAwayController::class, 'store']);

@@ -54,7 +54,7 @@
             <div style="background:#EBEBED;" class="velassSlide">
                 <div
                     class="velassImage"
-                    :data-src="`${baseUrl}/storage/${slide.slide_image}`"
+                    :data-src="`${baseUrl}/uploads/images/${slide.slide_image}`"
                 >
                     <div class="p-relative">
                         <div
@@ -64,7 +64,7 @@
                             <img
                                 class="product-card__img lazyload"
                                 :data-src="
-                                    `${baseUrl}/storage/${slide.slide_image}`
+                                    `${baseUrl}/uploads/images/${slide.slide_image}`
                                 "
                                 data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
                                 data-aspectratio="2.8656716417910446"

@@ -197,7 +197,7 @@
                                         <img
                                             style="background:white;"
                                             :src="
-                                                `${baseUrl}/storage/${post.featured_image}`
+                                                `${baseUrl}/uploads/images/${post.featured_image}`
                                             "
                                             class="img-thumbnail"
                                             width="45"
@@ -317,7 +317,7 @@
                                             >Featured Image:
                                         </label>
                                         <!-- <div class="row">
-                      <div class="col-md-2"><img style="background:white; max-width: 135% !important;" :src="`${baseUrl}/storage/${PostInfo.featured_image}`" class="img-thumbnail" alt="Cinque Terre"></div>
+                      <div class="col-md-2"><img style="background:white; max-width: 135% !important;" :src="`${baseUrl}/uploads/images/${PostInfo.featured_image}`" class="img-thumbnail" alt="Cinque Terre"></div>
                       <div class="col-md-10"><input type="file" accept="image/*" class="form-control-file mt-1" name="featured_img" :id="`featured_img_${post.id}`" placeholder="Featured Image..." @change="onChange_featured_img"></div>
                       </div> -->
                                         <input

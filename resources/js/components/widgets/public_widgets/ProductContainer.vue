@@ -72,7 +72,7 @@
                                         id="ProductPhotoImg"
                                         class="img-responsive"
                                         :src="
-                                            `${baseUrl}/storage/${ProductInfo.forwardImage}`
+                                            `${baseUrl}/uploads/images/${ProductInfo.forwardImage}`
                                         "
                                         alt=""
                                     />

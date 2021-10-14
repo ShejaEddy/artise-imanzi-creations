@@ -278,6 +278,7 @@ class ProductController extends Controller
             $product_info['forwardImage'] = $prod->forwardImage;
             $product_info['backwardImage'] = $prod->backwardImage;
             $product_info['categoryId'] = $prod->categoryId;
+            $product_info['otherCategoryId'] = $prod->otherCategoryId;
             $product_info['category_name'] = $this->get_category_name($prod->categoryId);
             $product_info['stock'] = $prod->stock;
             $product_info['location'] = $prod->location;
@@ -322,6 +323,7 @@ class ProductController extends Controller
             $product_info['forwardImage'] = $prod->forwardImage;
             $product_info['backwardImage'] = $prod->backwardImage;
             $product_info['categoryId'] = $prod->categoryId;
+            $product_info['otherCategoryId'] = $prod->otherCategoryId;
             $product_info['category_name'] = $this->get_category_name($prod->categoryId);
             $product_info['stock'] = $prod->stock;
             $product_info['location'] = $prod->location;
@@ -366,6 +368,7 @@ class ProductController extends Controller
                 $product_info['forwardImage'] = $prod->forwardImage;
                 $product_info['backwardImage'] = $prod->backwardImage;
                 $product_info['categoryId'] = $prod->categoryId;
+                $product_info['otherCategoryId'] = $prod->otherCategoryId;
                 $product_info['category_name'] = $this->get_category_name($prod->categoryId);
                 $product_info['stock'] = $prod->stock;
                 $product_info['location'] = $prod->location;
@@ -410,6 +413,7 @@ class ProductController extends Controller
             $product_info['forwardImage'] = $prod->forwardImage;
             $product_info['backwardImage'] = $prod->backwardImage;
             $product_info['categoryId'] = $prod->categoryId;
+            $product_info['otherCategoryId'] = $prod->otherCategoryId;
             $product_info['category_name'] = $this->get_category_name($prod->categoryId);
             $product_info['stock'] = $prod->stock;
             $product_info['location'] = $prod->location;
@@ -453,6 +457,7 @@ class ProductController extends Controller
             $product_info['forwardImage'] = $prod->forwardImage;
             $product_info['backwardImage'] = $prod->backwardImage;
             $product_info['categoryId'] = $prod->categoryId;
+            $product_info['otherCategoryId'] = $prod->otherCategoryId;
             $product_info['category_name'] = $this->get_category_name($prod->categoryId);
             $product_info['stock'] = $prod->stock;
             $product_info['location'] = $prod->location;
@@ -523,6 +528,7 @@ class ProductController extends Controller
             'longDesc' => 'required',
             'added_by' => 'required',
             'categoryId' => 'required',
+            'otherCategoryId' => 'required',
             'thumbnail' => 'required|mimes:jpg,gif,png,jpeg,svg,webp|max:2048',
             'forwardImage' => 'required|mimes:jpg,gif,png,jpeg,svg,webp|max:2048',
             'backwardImage' => 'required|mimes:jpg,gif,png,jpeg,svg,webp|max:2048',
@@ -569,6 +575,7 @@ class ProductController extends Controller
                 'forwardImage' => $forwardImageName,
                 'backwardImage' => $backwardImageName,
                 'categoryId' => $data['categoryId'],
+                'otherCategoryId' => $data['otherCategoryId'],
                 'stock' => $data['stock'],
                 'location' => $data['location'],
                 'is_for_company' => $is_for_company,
