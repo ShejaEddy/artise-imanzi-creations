@@ -1,4 +1,4 @@
-import axios from "axios";
+import Axios from "../../config/axios";
 
 const state = {
     cart: [],
@@ -57,37 +57,31 @@ const actions = {
         commit("incrementQty", id);
     },
     add_product_category({ commit }, data) {
-        return axios
-            .post("/api/add-category", data, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(response => {
-                commit("addProductCategory", response.data);
-            });
+        return Axios.post("/api/add-category", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(response => {
+            commit("addProductCategory", response.data);
+        });
     },
     add_company_category({ commit }, data) {
-        return axios
-            .post("/api/add-company-category", data, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(response => {
-                console.log(response);
-                commit("addCompanyCategory", response.data);
-            });
+        return Axios.post("/api/add-company-category", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(response => {
+            console.log(response);
+            commit("addCompanyCategory", response.data);
+        });
     },
     get_product_categories({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-categories", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-categories", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
 
@@ -100,13 +94,11 @@ const actions = {
     },
     get_other_categories({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-other-categories", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-other-categories", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("setOtherCategories", response.data);
@@ -118,13 +110,11 @@ const actions = {
     },
     get_extracted_categories({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-extracted-categories", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-extracted-categories", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("getExtractedCategories", response.data);
@@ -135,59 +125,50 @@ const actions = {
         });
     },
     update_product_category({ commit }, data) {
-        return axios
-            .post(
-                "/api/update-category",
-                {
-                    id: data.id,
-                    name: data.name,
-                    parent_category_id: data.parent_category_id
-                },
-                {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
+        return Axios.post(
+            "/api/update-category",
+            {
+                id: data.id,
+                name: data.name,
+                parent_category_id: data.parent_category_id
+            },
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
                 }
-            )
-            .then(response => {
-                if (response.data[0].message == "Success") {
-                    commit("updateProductCategory", response.data[0]);
-                }
-            });
+            }
+        ).then(response => {
+            if (response.data[0].message == "Success") {
+                commit("updateProductCategory", response.data[0]);
+            }
+        });
     },
     remove_product_category({ commit }, id) {
-        return axios
-            .get(`/api/remove-category/${id}`, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(({ response }) => {
-                commit("removeProductCategory", id);
-            });
+        return Axios.get(`/api/remove-category/${id}`, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(({ response }) => {
+            commit("removeProductCategory", id);
+        });
     },
     add_product_tag({ commit }, data) {
-        return axios
-            .post("/api/add-tag", data, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(response => {
-                commit("addProductTag", response.data);
-            });
+        return Axios.post("/api/add-tag", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(response => {
+            commit("addProductTag", response.data);
+        });
     },
 
     get_product_tags({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-tags", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-tags", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("getProductTags", response.data);
@@ -199,13 +180,11 @@ const actions = {
     },
     get_tags_options({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-tags", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-tags", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("getTagOptions", response.data);
@@ -217,13 +196,11 @@ const actions = {
     },
     get_company_products({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-company-products", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-company-products", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("getCompanyProducts", response.data);
@@ -235,13 +212,11 @@ const actions = {
     },
     get_company_categories({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-company-categories", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-company-categories", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("getCompanyCategories", response.data);
@@ -253,13 +228,11 @@ const actions = {
     },
     get_color_options({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-colors", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-colors", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("getColorOptions", response.data);
@@ -270,40 +243,34 @@ const actions = {
         });
     },
     update_product_tag({ commit }, data) {
-        return axios
-            .post("/api/update-tag", data, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(response => {
-                if (response.data == "Success") {
-                    commit("updateProductTag", data);
-                }
-            });
+        return Axios.post("/api/update-tag", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(response => {
+            if (response.data == "Success") {
+                commit("updateProductTag", data);
+            }
+        });
     },
 
     remove_product_tag({ commit }, id) {
-        return axios
-            .get(`/api/remove-tag/${id}`, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(({ response }) => {
-                commit("removeProductTag", id);
-            });
+        return Axios.get(`/api/remove-tag/${id}`, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(({ response }) => {
+            commit("removeProductTag", id);
+        });
     },
 
     get_products({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-products", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-products", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("getProducts", response.data);
@@ -316,13 +283,11 @@ const actions = {
 
     get_shop_products({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-shop-products", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-shop-products", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("getShopProducts", response.data);
@@ -335,13 +300,11 @@ const actions = {
 
     get_give_aways({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/give-aways", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/give-aways", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("setGiveAways", response.data);
@@ -354,13 +317,11 @@ const actions = {
 
     toggleSentGiveAway({ commit }, id) {
         return new Promise((resolve, reject) => {
-            return axios
-                .post("/api/give-aways/" + id + "/toggle", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            return Axios.post("/api/give-aways/" + id + "/toggle", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     return commit("changeGiveAwayStatus", response.data);
@@ -372,13 +333,11 @@ const actions = {
     get_my_products({ commit }) {
         let id = localStorage.getItem("userId");
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/get-my-products/${id}`, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get(`/api/get-my-products/${id}`, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response);
                     commit("getMyProducts", response.data);
@@ -391,13 +350,11 @@ const actions = {
 
     get_single_product({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/get-product/${data.productId}`, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get(`/api/get-product/${data.productId}`, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response.data);
                 })
@@ -407,13 +364,11 @@ const actions = {
 
     get_single_category({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/get-category/${data.categoryId}`, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get(`/api/get-category/${data.categoryId}`, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response.data[0]);
                 })
@@ -422,34 +377,29 @@ const actions = {
     },
 
     remove_product({ commit }, id) {
-        return axios
-            .get(`/api/remove-product/${id}`, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(({ response }) => {
-                commit("removeProduct", id);
-            });
+        return Axios.get(`/api/remove-product/${id}`, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(({ response }) => {
+            commit("removeProduct", id);
+        });
     },
     checkout({ commit }, data) {
-        return axios
-            .post("api/checkout", data, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(response => {
-                if (response.data === "Success") {
-                    commit("emptyCart", response.data);
-                }
-            });
+        return Axios.post("api/checkout", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(response => {
+            if (response.data === "Success") {
+                commit("emptyCart", response.data);
+            }
+        });
     },
 
     add_review({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .post("/api/add-review", data)
+            Axios.post("/api/add-review", data)
                 .then(response => {
                     resolve(response.data);
                     commit("addReview", response.data);
@@ -461,8 +411,7 @@ const actions = {
     },
     get_reviews({ commit }, id) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/get-reviews/${id}`)
+            Axios.get(`/api/get-reviews/${id}`)
                 .then(response => {
                     resolve(response.data);
                     commit("getReview", response.data);
@@ -475,8 +424,7 @@ const actions = {
 
     get_all_reviews({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-all-reviews")
+            Axios.get("/api/get-all-reviews")
                 .then(response => {
                     resolve(response.data);
                     commit("getAllReview", response.data);
@@ -489,8 +437,7 @@ const actions = {
 
     add_rate({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .post("/api/add-rate", data)
+            Axios.post("/api/add-rate", data)
                 .then(response => {
                     resolve(response.data);
                     commit("addReview", response.data);
@@ -502,74 +449,62 @@ const actions = {
     },
 
     update_product_review({ commit }, data) {
-        return axios
-            .post("/api/update-review", data, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(response => {
-                if (response.data == "Success") {
-                    console.log("Success");
-                }
-            });
+        return Axios.post("/api/update-review", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(response => {
+            if (response.data == "Success") {
+                console.log("Success");
+            }
+        });
     },
     remove_product_review({ commit }, id) {
-        return axios
-            .get(`/api/remove-review/${id}`, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(({ response }) => {
-                console.log(response);
-            });
+        return Axios.get(`/api/remove-review/${id}`, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(({ response }) => {
+            console.log(response);
+        });
     },
     publish_product_review({ commit }, data) {
-        return axios
-            .post("/api/publish-review", data, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(({ response }) => {
-                console.log(response);
-            });
+        return Axios.post("/api/publish-review", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(({ response }) => {
+            console.log(response);
+        });
     },
 
     approve_product({ commit }, id) {
-        return axios
-            .get(`/api/approve-product/${id}`, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(({ response }) => {
-                console.log(response);
-            });
+        return Axios.get(`/api/approve-product/${id}`, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(({ response }) => {
+            console.log(response);
+        });
     },
 
     reject_product({ commit }, id) {
-        return axios
-            .get(`/api/reject-product/${id}`, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(({ response }) => {
-                console.log(response);
-            });
+        return Axios.get(`/api/reject-product/${id}`, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(({ response }) => {
+            console.log(response);
+        });
     },
 
     get_all_earnings({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-all-earnings", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-all-earnings", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response.data);
                     commit("getAllEarnings", response.data);
@@ -582,13 +517,11 @@ const actions = {
 
     get_my_earnings({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-my-earnings", {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get("/api/get-my-earnings", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response.data);
                     commit("getMyEarnings", response.data);
@@ -600,20 +533,17 @@ const actions = {
     },
 
     add_post({ commit }, data) {
-        return axios
-            .post("/api/add-post", data, {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("userToken")
-                }
-            })
-            .then(response => {
-                commit("addPost", response.data);
-            });
+        return Axios.post("/api/add-post", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(response => {
+            commit("addPost", response.data);
+        });
     },
     get_posts({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-posts")
+            Axios.get("/api/get-posts")
                 .then(response => {
                     resolve(response.data);
                     commit("getPosts", response.data);
@@ -625,8 +555,7 @@ const actions = {
     },
     get_single_post({ commit }, id) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/get-single-post/${id}`)
+            Axios.get(`/api/get-single-post/${id}`)
                 .then(response => {
                     resolve(response.data);
                     commit("getSinglePost", response.data);
@@ -639,8 +568,7 @@ const actions = {
 
     publish_post({ commit }, id) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/publish-post/${id}`)
+            Axios.get(`/api/publish-post/${id}`)
                 .then(response => {
                     resolve(response.data);
                 })
@@ -652,8 +580,7 @@ const actions = {
 
     remove_post({ commit }, id) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/remove-post/${id}`)
+            Axios.get(`/api/remove-post/${id}`)
                 .then(response => {
                     resolve(response.data);
                 })
@@ -664,8 +591,7 @@ const actions = {
     },
     search_post({ commit }, search_for) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/search-post/${search_for}`)
+            Axios.get(`/api/search-post/${search_for}`)
                 .then(response => {
                     resolve(response.data);
                     commit("SearchPost", response.data);
@@ -677,20 +603,18 @@ const actions = {
     },
 
     getUserLocation({ commit }) {
-        return axios.get("https://ipinfo.io", data, config).then(response => {
+        return Axios.get("https://ipinfo.io", data, config).then(response => {
             console.log(response.city, response.country);
         });
     },
 
     add_advert({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .post("/api/add-advert", data, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.post("/api/add-advert", data, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response.data);
                     commit("addAdvert", response.data);
@@ -702,8 +626,7 @@ const actions = {
     },
     get_adverts({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-adverts")
+            Axios.get("/api/get-adverts")
                 .then(response => {
                     resolve(response.data);
                     commit("getAdverts", response.data);
@@ -715,13 +638,11 @@ const actions = {
     },
     add_slide({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .post("/api/add-slide", data, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.post("/api/add-slide", data, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response.data);
                     commit("addSlide", response.data);
@@ -733,8 +654,7 @@ const actions = {
     },
     get_slides({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-slides")
+            Axios.get("/api/get-slides")
                 .then(response => {
                     resolve(response.data);
                     commit("getSlides", response.data);
@@ -746,13 +666,11 @@ const actions = {
     },
     get_single_slide({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/get-slide/${data.slideId}`, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get(`/api/get-slide/${data.slideId}`, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response.data);
                 })
@@ -760,27 +678,23 @@ const actions = {
         });
     },
     update_slide({ commit }, data) {
-        return axios
-            .post("/api/update-slide", data, {
+        return Axios.post("/api/update-slide", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(response => {
+            if (response.data == "Success") {
+                console.log("Success");
+            }
+        });
+    },
+    remove_slide({ commit }, id) {
+        return new Promise((resolve, reject) => {
+            Axios.get(`/api/remove-slide/${id}`, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("userToken")
                 }
             })
-            .then(response => {
-                if (response.data == "Success") {
-                    console.log("Success");
-                }
-            });
-    },
-    remove_slide({ commit }, id) {
-        return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/remove-slide/${id}`, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
                 .then(response => {
                     resolve(response.data);
                 })
@@ -792,8 +706,7 @@ const actions = {
 
     save_views({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/add-views/${data.product_id}`)
+            Axios.get(`/api/add-views/${data.product_id}`)
                 .then(response => {
                     resolve(response.data);
                 })
@@ -805,13 +718,11 @@ const actions = {
 
     add_page({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .post("/api/add-page", data, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.post("/api/add-page", data, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response.data);
                     commit("addPage", response.data);
@@ -823,8 +734,7 @@ const actions = {
     },
     get_pages({ commit }) {
         return new Promise((resolve, reject) => {
-            axios
-                .get("/api/get-pages")
+            Axios.get("/api/get-pages")
                 .then(response => {
                     resolve(response.data);
                     commit("getPages", response.data);
@@ -835,27 +745,23 @@ const actions = {
         });
     },
     update_page({ commit }, data) {
-        return axios
-            .post("/api/update-page", data, {
+        return Axios.post("/api/update-page", data, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("userToken")
+            }
+        }).then(response => {
+            if (response.data == "Success") {
+                console.log("Success");
+            }
+        });
+    },
+    remove_page({ commit }, id) {
+        return new Promise((resolve, reject) => {
+            Axios.get(`/api/remove-page/${id}`, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("userToken")
                 }
             })
-            .then(response => {
-                if (response.data == "Success") {
-                    console.log("Success");
-                }
-            });
-    },
-    remove_page({ commit }, id) {
-        return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/remove-page/${id}`, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
                 .then(response => {
                     resolve(response.data);
                 })
@@ -866,13 +772,11 @@ const actions = {
     },
     get_single_page({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/get-page/${data.pageId}`, {
-                    headers: {
-                        Authorization:
-                            "Bearer " + localStorage.getItem("userToken")
-                    }
-                })
+            Axios.get(`/api/get-page/${data.pageId}`, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("userToken")
+                }
+            })
                 .then(response => {
                     resolve(response.data);
                 })
@@ -882,8 +786,7 @@ const actions = {
 
     ContactUsMail({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .post("/api/send-mail", data)
+            Axios.post("/api/send-mail", data)
                 .then(response => {
                     resolve(response.data);
                 })
@@ -895,8 +798,7 @@ const actions = {
 
     shop_search({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/shop-search/${data.searchValue}`)
+            Axios.get(`/api/shop-search/${data.searchValue}`)
                 .then(response => {
                     resolve(response.data);
                     commit("shopSearchedData", response.data);
@@ -908,8 +810,7 @@ const actions = {
     },
     dashboard_search({ commit }, data) {
         return new Promise((resolve, reject) => {
-            axios
-                .get(`/api/dashboard-search/${data.type}/${data.searchValue}`)
+            Axios.get(`/api/dashboard-search/${data.type}/${data.searchValue}`)
                 .then(response => {
                     resolve(response.data);
                     commit("dashboardSearchedData", response.data);
@@ -921,8 +822,7 @@ const actions = {
     },
     get_give_away({ commit }) {
         return new Promise((resolve, reject) =>
-            axios
-                .get(`api/give-away`)
+            Axios.get(`api/give-away`)
                 .then(res => {
                     commit("setGiveAway", res.data);
                     resolve(res.data);
@@ -932,8 +832,7 @@ const actions = {
     },
     storeGiveAwayRequest(_, data) {
         return new Promise((resolve, reject) =>
-            axios
-                .post(`api/give-away`, data)
+            Axios.post(`api/give-away`, data)
                 .then(res => {
                     resolve(res.data);
                 })

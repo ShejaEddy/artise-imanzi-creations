@@ -73,7 +73,7 @@ export default {
             this.giveAway = await this.$store.dispatch(
                 "products/get_give_away"
             );
-            if (this.giveAway) {
+            if (this.giveAway && this.giveAway.id) {
                 this.addModal();
             }
         }

@@ -106,12 +106,13 @@ export default {
 .artise_product_section {
     min-height: 500px;
     margin: 0px auto !important;
-    background: #efefef;
 }
 .position-Right {
+    background: #efefef;
     background-position: right;
 }
 .position-Left {
+    background: white;
     background-position: left;
 }
 .prod-container {

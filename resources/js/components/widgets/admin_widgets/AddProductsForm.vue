@@ -693,6 +693,24 @@ export default {
         },
 
         saveProduct() {
+            this.nameErr = false;
+            this.categoryErr = false;
+            // this.colorsErr = false;
+            this.tagsErr = false;
+            this.stockErr = false;
+            this.priceErr = false;
+            this.discountErr = false;
+            this.sizeErr = false;
+            this.locationErr = false;
+            this.short_descriptionErr = false;
+            this.long_descriptionErr = false;
+            this.thumbnailErr = false;
+            this.forward_imgErr = false;
+            this.backward_imgErr = false;
+            this.bookPdfErr = false;
+            this.productTypeErr = false;
+            this.ErrorsAvailable = false;
+            this.errors = null;
             this.loading = true;
             let currentObj = this;
 
@@ -769,6 +787,7 @@ export default {
                     this.scrollTop();
                 })
                 .catch(error => {
+                    console.log(error.response);
                     this.errors = error.response.data.errors;
                     if ("name" in this.errors) {
                         this.nameErr = true;
